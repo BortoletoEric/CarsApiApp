@@ -15,6 +15,8 @@ class CarroViewModel @Inject constructor(
     private val salvarCarroUseCase: SalvarCarroUseCase
 ) : ViewModel() {
 
+    val montadoras = listOf("HONDA", "TOYOTA", "NISSAN", "MITSUBISHI")
+
     private val _uiState = MutableStateFlow<CarroUiState>(CarroUiState.Idle)
     val uiState: StateFlow<CarroUiState> = _uiState.asStateFlow()
 
