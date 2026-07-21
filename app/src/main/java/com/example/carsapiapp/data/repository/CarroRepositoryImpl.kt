@@ -11,13 +11,18 @@ class CarroRepositoryImpl @Inject constructor(
     private val api: CarroApi
 ) : CarroRepository {
 
-    override suspend fun salvarCarro(carro: Carro): Result<Unit> {
+    override suspend fun salvarCarro(carro: Carro): Result<String> {
         return try {
             val response = api.salvarCarro(carro.toDto())
             if (response.isSuccessful) {
-                Result.success(Unit)
+                val statusBody = response.body()
+                if (statusBody != null) {
+                    Result.success(statusBody.mensagem)
+                } else {
+                    Result.failure(Exception("Resposta da API veio vazia."))
+                }
             } else {
-                Result.failure(Exception("Erro na API HTTP: ${response.code()}"))
+                Result.failure(Exception("Erro HTTP: ${response.code()}"))
             }
         } catch (e: Exception) {
             Result.failure(e)

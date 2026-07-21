@@ -27,7 +27,8 @@ fun CarroScreen(viewModel: CarroViewModel = hiltViewModel()) {
 fun CarroScreenContent(
     uiState: CarroUiState,
     onSalvar: (String, String) -> Unit,
-    onResetState: () -> Unit
+    onResetState: () -> Unit,
+    viewModel: CarroViewModel = hiltViewModel()
 ) {
     var tipo by remember { mutableStateOf("") }
     var montadora by remember { mutableStateOf("") }
@@ -66,12 +67,19 @@ fun CarroScreenContent(
 
         when (val state = uiState) {
             is CarroUiState.Success -> {
-                Text("Carro salvo com sucesso!", color = MaterialTheme.colorScheme.primary)
-                Toast.makeText(LocalContext.current, "Carro salvo com sucesso!", Toast.LENGTH_SHORT).show()
-                LaunchedEffect(Unit) {
-                    tipo = ""
-                    montadora = ""
-                    onResetState()
+                Text(
+                    text = state.message, // Exibe a mensagem real (ex: "Carro ligado. Rodando com o motor...")
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Button(
+                    onClick = {
+                        tipo = ""
+                        montadora = ""
+                        viewModel.resetState()
+                    },
+                    modifier = Modifier.padding(top = 8.dp)
+                ) {
+                    Text("Tentar Novamente")
                 }
             }
             is CarroUiState.Error -> Text("Erro: ${state.message}", color = MaterialTheme.colorScheme.error)
@@ -109,7 +117,7 @@ fun CarroScreenLoadingPreview() {
 fun CarroScreenSuccessPreview() {
     CarsApiAppTheme {
         CarroScreenContent(
-            uiState = CarroUiState.Success,
+            uiState = CarroUiState.Success("Carro salvo com sucesso!"),
             onSalvar = { _, _ -> },
             onResetState = {}
         )

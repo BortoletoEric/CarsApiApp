@@ -7,5 +7,5 @@ import retrofit2.http.POST
 
 interface CarroApi {
     @POST("/carros")
-    suspend fun salvarCarro(@Body request: CarroRequestDto): Response<Unit>
+    suspend fun salvarCarro(@Body request: CarroRequestDto): Response<CarroStatusDto>
 }

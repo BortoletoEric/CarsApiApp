@@ -22,8 +22,8 @@ class CarroViewModel @Inject constructor(
         _uiState.value = CarroUiState.Loading
         viewModelScope.launch {
             salvarCarroUseCase(tipo, montadora).fold(
-                onSuccess = { _uiState.value = CarroUiState.Success },
-                onFailure = { _uiState.value = CarroUiState.Error(it.message ?: "Erro desconhecido") }
+                onSuccess = { mensagemApi -> _uiState.value = CarroUiState.Success(mensagemApi) },
+                onFailure = { erro -> _uiState.value = CarroUiState.Error(erro.message ?: "Erro desconhecido") }
             )
         }
     }

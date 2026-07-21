@@ -6,7 +6,7 @@ import com.example.carsapiapp.domain.repository.CarroRepository
 class SalvarCarroUseCase(
     private val repository: CarroRepository
 ) {
-    suspend operator fun invoke(tipo: String, montadora: String): Result<Unit> {
+    suspend operator fun invoke(tipo: String, montadora: String): Result<String> {
         if (tipo.isBlank() || montadora.isBlank()) {
             return Result.failure(IllegalArgumentException("Tipo e montadora são obrigatórios."))
         }
