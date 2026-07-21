@@ -5,8 +5,9 @@ import com.example.carsapiapp.data.remote.CarroApi
 import com.example.carsapiapp.data.remote.toDto
 import com.example.carsapiapp.domain.model.Carro
 import com.example.carsapiapp.domain.repository.CarroRepository
+import javax.inject.Inject
 
-class CarroRepositoryImpl(
+class CarroRepositoryImpl @Inject constructor(
     private val api: CarroApi
 ) : CarroRepository {
 

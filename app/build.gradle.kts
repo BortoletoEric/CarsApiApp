@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -33,6 +36,9 @@ android {
     buildFeatures {
         compose = true
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
@@ -42,6 +48,8 @@ dependencies {
 
     // Hilt (Injeção de Dependência)
     implementation(libs.hilt.android)
+    ksp(libs.dagger.hilt.android.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(platform(libs.androidx.compose.bom))
