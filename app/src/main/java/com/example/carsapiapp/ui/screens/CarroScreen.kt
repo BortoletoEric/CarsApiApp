@@ -13,6 +13,10 @@ import com.example.carsapiapp.ui.CarroUiState
 import com.example.carsapiapp.ui.CarroViewModel
 import com.example.carsapiapp.ui.theme.CarsApiAppTheme
 
+/**
+ * Composable principal da tela de Carros.
+ * Gerencia a integração com o ViewModel.
+ */
 @Composable
 fun CarroScreen(viewModel: CarroViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
@@ -24,6 +28,15 @@ fun CarroScreen(viewModel: CarroViewModel = hiltViewModel()) {
     )
 }
 
+/**
+ * Composable que define o layout e os componentes da tela de Carros.
+ * Esta versão é "stateless" para facilitar testes e previews.
+ *
+ * @param uiState O estado atual da interface.
+ * @param montadoras Lista de montadoras para o dropdown.
+ * @param onSalvar Callback disparado ao clicar em salvar.
+ * @param onResetState Callback para resetar o formulário.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CarroScreenContent(

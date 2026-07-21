@@ -7,10 +7,16 @@ import com.example.carsapiapp.domain.model.Carro
 import com.example.carsapiapp.domain.repository.CarroRepository
 import javax.inject.Inject
 
+/**
+ * Implementação concreta do [CarroRepository] utilizando a [CarroApi].
+ */
 class CarroRepositoryImpl @Inject constructor(
     private val api: CarroApi
 ) : CarroRepository {
 
+    /**
+     * Salva o carro chamando o endpoint remoto e tratando a resposta.
+     */
     override suspend fun salvarCarro(carro: Carro): Result<String> {
         return try {
             val response = api.salvarCarro(carro.toDto())
